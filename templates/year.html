@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Альбомы {{ year }}</title>
+</head>
+<body>
+  <h2>Альбомы года {{ year }}</h2>
+
+  <!-- Кнопка добавить альбом -->
+  <form method="post" action="{{ url_for('add_album', year=year) }}">
+    <input type="text" name="album_name" placeholder="Введите название альбома">
+    <button type="submit">➕ Добавить альбом</button>
+  </form>
+
+  {% for album, cover in albums %}
+    <div>
+      <a href="{{ url_for('album_view', year=year, album=album) }}">
+        <p>{{ album }}</p>
+        {% if cover %}
+          <img src="{{ url_for('photo', filename=year ~ '/' ~ album ~ '/' ~ cover) }}" width="150">
+        {% endif %}
+      </a>
+      <!-- Кнопка удалить -->
+      <form method="post" action="{{ url_for('delete_album', year=year, album=album) }}">
+        <button type="submit">🗑 Удалить</button>
+      </form>
+    </div>
+  {% endfor %}
+
+  <a href="{{ url_for('index') }}">Назад</a>
+</body>
+</html>

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ album }} ({{ year }})</title>
+</head>
+<body>
+  <h2>Фото из альбома "{{ album }}" ({{ year }})</h2>
+  {% for photo in photos %}
+    <img src="{{ url_for('photo', filename=year ~ '/' ~ album ~ '/' ~ photo) }}" width="150">
+  {% endfor %}
+  <a href="{{ url_for('year_view', year=year) }}">Назад</a>
+</body>
+</html>

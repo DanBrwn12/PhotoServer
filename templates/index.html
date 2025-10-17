@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Фотоархив</title>
+</head>
+<body>
+  <h2>Годы</h2>
+
+  <!-- Кнопка добавить год -->
+  <form method="post" action="{{ url_for('add_year') }}">
+    <input type="text" name="year_name" placeholder="Введите год">
+    <button type="submit">➕ Добавить год</button>
+  </form>
+
+  {% for year, cover in years %}
+    <div>
+      <a href="{{ url_for('year_view', year=year) }}">
+        <p>{{ year }}</p>
+        {% if cover %}
+          <img src="{{ url_for('photo', filename=cover) }}" width="150">
+        {% endif %}
+      </a>
+      <!-- Кнопка удалить -->
+      <form method="post" action="{{ url_for('delete_year', year=year) }}">
+        <button type="submit">🗑 Удалить</button>
+      </form>
+    </div>
+  {% endfor %}
+
+  <a href="{{ url_for('logout') }}">Выйти</a>
+</body>
+</html>
